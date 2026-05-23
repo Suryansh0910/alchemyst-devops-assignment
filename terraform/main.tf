@@ -92,6 +92,7 @@ resource "google_compute_instance" "inference" {
   }
 
   metadata_startup_script = templatefile("${path.module}/../scripts/setup-inference.sh", {
-    gateway_ip = google_compute_instance.gateway.network_interface[0].network_ip
+    gateway_ip     = google_compute_instance.gateway.network_interface[0].network_ip
+    gemini_api_key = var.gemini_api_key
   })
 }

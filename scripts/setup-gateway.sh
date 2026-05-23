@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+export HOME=/root
+
 # Install dependencies
 apt-get update -y
 apt-get install -y curl git nodejs npm
@@ -13,10 +15,7 @@ export PATH=$PATH:/root/.local/bin
 git clone https://github.com/Suryansh0910/alchemyst-devops-assignment.git /opt/quickstart
 cd /opt/quickstart
 
-# Fix config to bind engine on all interfaces
-sed -i 's/host: 127.0.0.1/host: 0.0.0.0/' config.yaml
-
-# Create systemd service for engine
+# Create systemd service for iii engine
 cat > /etc/systemd/system/iii-engine.service << 'UNIT'
 [Unit]
 Description=iii Engine
@@ -27,6 +26,7 @@ User=root
 WorkingDirectory=/opt/quickstart
 ExecStart=/root/.local/bin/iii --config config.yaml
 Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
@@ -44,6 +44,7 @@ User=root
 WorkingDirectory=/opt/quickstart
 ExecStart=/root/.local/bin/iii worker start ./workers/caller-worker
 Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target

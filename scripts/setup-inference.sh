@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+export HOME=/root
+
 apt-get update -y
 apt-get install -y curl git python3 python3-pip
 
@@ -13,7 +15,7 @@ git clone https://github.com/Suryansh0910/alchemyst-devops-assignment.git /opt/q
 cd /opt/quickstart
 
 # Create systemd service for inference-worker
-cat > /etc/systemd/system/inference-worker.service << 'UNIT'
+cat > /etc/systemd/system/inference-worker.service << UNIT
 [Unit]
 Description=iii Inference Worker
 After=network.target
@@ -22,8 +24,10 @@ After=network.target
 User=root
 WorkingDirectory=/opt/quickstart
 Environment=III_URL=ws://${gateway_ip}:49134
+Environment=GEMINI_API_KEY=${gemini_api_key}
 ExecStart=/root/.local/bin/iii worker start ./workers/inference-worker
 Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target

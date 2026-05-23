@@ -18,6 +18,7 @@ workers:
     config:
       adapter:
         name: builtin
+
   - name: iii-state
     config:
       adapter:
@@ -25,24 +26,22 @@ workers:
         config:
           store_method: file_based
           file_path: ./data/state_store.db
+
   - name: iii-http
     config:
       port: 3111
-      host: 127.0.0.1
+      host: 0.0.0.0
       default_timeout: 300000
       concurrency_request_limit: 1024
       cors:
         allowed_origins:
-        - '*'
+          - '*'
         allowed_methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - OPTIONS
-  - name: inference-worker
-    worker_path: /Users/suryanshgupta/Desktop/hiring/may-2026/devops/quickstart/workers/inference-worker
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+
   - name: caller-worker
-    worker_path: /Users/suryanshgupta/Desktop/hiring/may-2026/devops/quickstart/workers/caller-worker
-  - name: math-worker
-    worker_path: /Users/suryanshgupta/Desktop/hiring/may-2026/devops/quickstart/workers/inference-worker
+    worker_path: ./workers/caller-worker

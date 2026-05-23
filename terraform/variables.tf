@@ -12,3 +12,8 @@ variable "zone" {
   description = "GCP Zone"
   default     = "us-central1-a"
 }
+
+variable "gemini_api_key" {
+  description = "Gemini API key for inference worker"
+  sensitive   = true
+}
