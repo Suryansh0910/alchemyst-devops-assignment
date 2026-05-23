@@ -50,13 +50,17 @@ resource "google_compute_firewall" "allow_internal" {
 # Gateway VM (public IP)
 resource "google_compute_instance" "gateway" {
   name         = "gateway-vm"
-  machine_type = "e2-medium"
+  machine_type = "n2-standard-2"
   zone         = var.zone
   tags         = ["gateway"]
 
+  advanced_machine_features {
+    enable_nested_virtualization = true
+  }
+
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = "debian-cloud/debian-12"
       size  = 20
     }
   }
@@ -78,7 +82,7 @@ resource "google_compute_instance" "inference" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = "debian-cloud/debian-12"
       size  = 20
     }
   }
