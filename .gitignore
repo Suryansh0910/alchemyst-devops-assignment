@@ -387,3 +387,18 @@ target
 terraform/.terraform/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
+terraform/*.tfstate*
+*.tfvars
+*.tfvars.json
+
+# Secrets & credentials — never commit these
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*_rsa
+*_rsa.pub
+service-account*.json
+credentials.json
